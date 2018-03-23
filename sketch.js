@@ -4,8 +4,9 @@ var right;
 var left;
 var right_sc = 0;
 var left_sc = 0;
-
+fp = 120;
 function setup() {
+    frameRate(fp);
     createCanvas(812, 400);
     ball = new Ball();
     right = new Paddle(width-6);
@@ -14,11 +15,13 @@ function setup() {
 }
 
 function draw() {
-    background(0);
 
+    background(0);
+    //console.log(frameRate());
     ball.checkPaddleRight(right);
     ball.checkPaddleLeft(left);
 
+    setMove();
     right.show();
     left.show();
     right.update();
@@ -34,18 +37,6 @@ function draw() {
     text(str(left_sc) + " | " + str(right_sc), width/2, height*(1/4));
     // console.log(str(left_sc) + " | " + str(right_sc))
 
-    function keyPressed() {
-        if (keyCode === UP_ARROW) {
-            right.move(-10);
-        } else if (keyCode === DOWN_ARROW) {
-            right.move(10);
-        }
-        if (keyCode === 87) {
-            left.move(-10);
-        } else if (keyCode === 83) {
-            left.move(10);
-        }
-    }
     
 
 }
@@ -54,3 +45,19 @@ function keyReleased() {
     right.move(0); 
     left.move(0);
 }
+
+
+function setMove() {
+    if (keyIsDown(DOWN_ARROW)) {
+        right.move(10);
+    }
+    if (keyIsDown(UP_ARROW)) {
+        right.move(-10);
+    }
+    if (keyIsDown(87)) {
+        left.move(-10);
+    }
+    if (keyIsDown(83)) {
+        left.move(10);
+    }
+  }

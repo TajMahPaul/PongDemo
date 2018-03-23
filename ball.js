@@ -7,18 +7,27 @@ function Ball() {
     this.r = 5;
 
     this.checkPaddleLeft = function(p){
-        
-        if (this.pos.y < p.y + p.h/2 && this.pos.y > p.y - p.h/2 && this.pos.x - this.r < p.x + p.w/2 ){
-                if(this.pos.x > p.x ){
-                    this.vel.x *= -1;
+        if (this.pos.y < p.pos.y + p.h/2 && this.pos.y > p.pos.y - p.h/2 && this.pos.x - this.r < p.pos.x + p.w/2 + 1 ){
+            if(this.pos.x > p.pos.x ){
+                if (abs(p.vel.y) > 0){
+                    this.acc.y = -p.vel.y*(.01);
                 }
+                this.vel.x *= -1;
+            }
         }
+        
+
             
     }
 
     this.checkPaddleRight = function(p){
-        if (this.pos.y < p.y + p.h/2 && this.pos.y > p.y - p.h/2 && this.pos.x + this.r > p.x - p.w/2 ){
-            if(this.pos.x < p.x ){
+        if (this.pos.y < p.pos.y + p.h/2 && this.pos.y > p.pos.y - p.h/2 && this.pos.x + this.r > p.pos.x - p.w/2 - 1 ){
+            if(this.pos.x < p.pos.x ){
+                if (abs(p.vel.y) > 0){
+                    this.acc.y = -p.vel.y*(.01);
+                    console.log(this.acc);
+                }
+                
                 this.vel.x *= -1;
             }
         }
@@ -40,6 +49,7 @@ function Ball() {
     }
 
     this.reset = function(){
+        this.acc.mult(0);   
         this.pos.x = width/2;
         this.pos.y = height/2;
         angleMode(DEGREES);
@@ -53,7 +63,8 @@ function Ball() {
     this.update = function(){
         this.vel.add(this.acc);
         this.pos.add(this.vel);
-        this.acc.mult(0);
+        this.acc.mult(.999)
+
     }
 
     this.edges = function() {

@@ -1,24 +1,25 @@
 function Paddle(_x){
-    this.x = _x;
-    this.y = height/2;
+    this.pos = createVector(_x, height/2);
+    console.log(this.pos);  
     this.h = 70;
     this.w = 10;
 
-    this.velocity = 0;
+    this.vel = createVector();
 
     this.update = function(){
-        this.y += this.velocity;
-        this.y = constrain(this.y,this.h/2,height - this.h/2);
+        this.pos.add(this.vel);
+        this.pos.y = constrain(this.pos.y,this.h/2,height - this.h/2);
     }
 
     this.show = function(){
         push();
+        translate(this.pos.x,this.pos.y);
         fill(255);
         rectMode(CENTER);
-        rect(this.x,this.y,this.w,this.h);  
+        rect(0,0,this.w,this.h);  
         pop();
     }
     this.move = function(steps){
-        this.velocity = steps;
+        this.vel.y = steps;
     }
 }
