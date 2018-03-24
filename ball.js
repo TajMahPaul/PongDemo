@@ -13,6 +13,7 @@ function Ball() {
                     this.acc.y = -p.vel.y*(.01);
                 }
                 this.vel.x *= -1;
+                this.pos.x = p.pos.x + p.w/2 + this.r;
             }
         }
         
@@ -25,10 +26,11 @@ function Ball() {
             if(this.pos.x < p.pos.x ){
                 if (abs(p.vel.y) > 0){
                     this.acc.y = -p.vel.y*(.01);
-                    console.log(this.acc);
+                    //console.log(this.acc);
                 }
                 
                 this.vel.x *= -1;
+                this.pos.x = p.pos.x - p.w/2 - this.r;
             }
         }
             
@@ -57,18 +59,23 @@ function Ball() {
         var rand_direction = random([-1,1]);
         this.vel.x = rand_direction*cos(rand_angle);
         this.vel.y = sin(rand_angle);   
-        this.vel.mult(7);
+        this.vel.mult(9);
     }
 
     this.update = function(){
         this.vel.add(this.acc);
         this.pos.add(this.vel);
-        this.acc.mult(.999)
+        this.acc.mult(.99)
 
     }
 
     this.edges = function() {
-        if(this.pos.y - this.r < 0 || this.pos.y + this.r > height){
+        if(this.pos.y - this.r < 0) {
+            this.pos.y = 0 + this.r
+            this.vel.y *= -1;
+        }
+        if(this.pos.y + this.r > height){
+            this.pos.y = height - this.r;
             this.vel.y *= -1;
         }
         if (this.pos.x > width){

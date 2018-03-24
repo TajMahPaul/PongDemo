@@ -22,6 +22,7 @@ function draw() {
     ball.checkPaddleLeft(left);
 
     setMove();
+
     right.show();
     left.show();
     right.update();
@@ -49,15 +50,15 @@ function keyReleased() {
 
 function setMove() {
     if (keyIsDown(DOWN_ARROW)) {
-        right.move(10);
+        right.move(15);
     }
     if (keyIsDown(UP_ARROW)) {
-        right.move(-10);
+        right.move(-15);
     }
     if (keyIsDown(87)) {
-        left.move(-10);
+        left.move(-15);
     }
     if (keyIsDown(83)) {
-        left.move(10);
+        left.move(15);
     }
   }
